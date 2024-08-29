@@ -1,4 +1,3 @@
-import * as React from "react";
 import Toast from 'react-native-toast-message';
 
 type notificationsType= {

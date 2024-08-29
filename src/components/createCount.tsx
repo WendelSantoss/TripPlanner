@@ -3,10 +3,10 @@ import { useState } from "react";
 
 import { Input } from "./input";
 import { Button } from "./button";
-import useAuthentication from "@/serer/userAuthentication";
+import useAuthentication from "@/server/userAuthentication";
 import { notifications } from "./notifications";
 import { useNavigation } from "@react-navigation/native";
-import { useUserContext } from "@/serer/userContext";
+import { useUserContext } from "@/server/userContext";
 
 type ModalCreateCount = {
   setStepForm: (visible: boolean) => void,

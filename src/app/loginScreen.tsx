@@ -2,9 +2,9 @@ import { useState } from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import { colors } from "@/styles/colors";
 
-import { useUserContext } from "@/serer/userContext";
+import { useUserContext } from "@/server/userContext";
 import { useNavigation } from '@react-navigation/native';
-import useAuthentication from "@/serer/userAuthentication";
+import useAuthentication from "@/server/userAuthentication";
 
 import {Eye, EyeOff} from "lucide-react-native"
 import { Button } from "@/components/button";
@@ -29,10 +29,11 @@ export default function Login(){
     const navigation = useNavigation()
 
     function validacaoErros(message: string){
+    
         if(message === "Firebase: Error (auth/invalid-credential)."){
             const type = "error"
-            const tittle= "Senha inválida"
-            const message= "Sua senha é inválida, cheque seus dados e tente novamente."
+            const tittle= "Email ou Senha inválidos"
+            const message= "Cheque seus dados e tente novamente."
             notifications({type, tittle, message })
         
         }else if (message === "Firebase: Error (auth/invalid-email)."){
@@ -63,29 +64,46 @@ export default function Login(){
     }
     
     const fazerLogin = async () => {
-        try{
-            const response = await handleLogin({ email, senha });
-            const token = await response?.user.getIdToken();
-            
+        if(!email && !senha){
+            const type = "error"
+            const tittle= "Email e Senha não digitados"
+            const message= "Por favor digite o email e a senha para efetuar o login."
+            notifications({type, tittle, message })
+        }else if(email && !senha){
+            const type = "error"
+            const tittle= "Senha não digitada"
+            const message= "Por favor digite a senha para efetuar o login."
+            notifications({type, tittle, message })
+        }else if(!email && senha){
+            const type = "error"
+            const tittle= "Email não digitado"
+            const message= "Por favor digite seu email para efetuar o login."
+            notifications({type, tittle, message })
+        }else{
+            try{
+                const response = await handleLogin({ email, senha });
+                const token = await response?.user.getIdToken();
 
-            if (token) {
-                const type = "success"
-                const tittle= "Login com sucesso"
-                const message= "Seja bem vindo."
-                notifications({type, tittle, message })
-                setUser(response?.user)
-                setToken(token)
-                console.log("Login com sucesso");
-                navigation.reset({
-                    index: 0,
-                    routes: [{ name: 'HomePage' }],
-                })
-                
+                if (token) {
+                    const type = "success"
+                    const tittle= "Login com sucesso"
+                    const message= "Seja bem vindo."
+                    notifications({type, tittle, message })
+                    setUser(response?.user)
+                    setToken(token)
+                    console.log("Login com sucesso");
+                    navigation.reset({
+                        index: 0,
+                        routes: [{ name: 'HomePage' }],
+                    })
+                    
+                }
+            }catch(error: any){
+                validacaoErros(error.message)
+                console.log("Console tela login>", error.message);
             }
-        }catch(error: any){
-            validacaoErros(error.message)
-            console.log("Console tela login>", error.message);
         }
+
     };
 
     return (

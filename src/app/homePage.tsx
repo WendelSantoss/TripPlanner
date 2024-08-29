@@ -3,10 +3,10 @@ import { Text, View, Image, TouchableOpacity } from "react-native";
 import {LogOut, Plane} from "lucide-react-native"
 import { colors } from "@/styles/colors";
 
-import { useUserContext } from "@/serer/userContext";
-import useAuthentication from "@/serer/userAuthentication";
+import { useUserContext } from "@/server/userContext";
+import useAuthentication from "@/server/userAuthentication";
 import { useNavigation } from "@react-navigation/native";
-import userTrips from "@/serer/userTripServer";
+import userTrips from "@/server/userTripServer";
 import { useEffect } from "react";
 
 

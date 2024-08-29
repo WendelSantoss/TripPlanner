@@ -13,7 +13,7 @@ import{
 
 import  Loading  from '@/components/loading'
 import Toast, { BaseToast, ErrorToast }  from "react-native-toast-message"
-import { UserContextProvider } from "@/serer/userContext";
+import { UserContextProvider } from "@/server/userContext";
 
 export default function Layout(){
 

@@ -3,7 +3,7 @@ import { useState } from "react";
 
 import { Input } from "./input";
 import { Button } from "./button";
-import useAuthentication from "@/serer/userAuthentication";
+import useAuthentication from "@/server/userAuthentication";
 import { notifications } from "./notifications";
 
 type recoverSenhaModal = {
