@@ -50,9 +50,16 @@ export default function AgendeTrip (){
     const navigation = useNavigation();
 
     const goBack = ()=> navigation.goBack();
-
+   
     function alterarStepForm(){
         if(stepForm === StepForm.DetalheViagem && selectedDates.start && selectedDates.end && destination){
+            if(destination.length < 4 ){
+                const type = "error"
+                const tittle= "Destino inválido"
+                const message= "Destino deve possuir no mínimo 4 caracteres."
+                notifications({type, tittle, message })
+                return
+            }
             setStepForm(StepForm.ADDEmail)
         }else{
             const type = "error"
@@ -100,6 +107,14 @@ export default function AgendeTrip (){
                 end: data
             }))
             if(destination){
+                if(destination.length < 4 ){
+                    const type = "error"
+                    const tittle= "Destino inválido"
+                    const message= "Destino deve possuir no mínimo 4 caracteres."
+                    notifications({type, tittle, message })
+                    setStepForm(StepForm.DetalheViagem)
+                    return
+                }
                 setStepForm(StepForm.ADDEmail)
             }else{
                 setStepForm(StepForm.DetalheViagem)
@@ -171,7 +186,10 @@ export default function AgendeTrip (){
             const message= "A trip foi confirmada com sucesso."
             notifications({type, tittle, message })
         
-            navigation.navigate("HomePage")
+            navigation.reset({
+                index: 0,
+                routes: [{ name: 'HomePage' }]
+            });
             
         }else{
           console.log(response.message)
@@ -357,7 +375,7 @@ export default function AgendeTrip (){
                         </Modal>
                     }
 
-                    <Button onPress={stepForm == StepForm.ADDEmail? criarTrip: alterarStepForm}>
+                    <Button onPress={stepForm == StepForm.ADDEmail? criarTrip : alterarStepForm}>
                         <Button.Tittle>
                             {stepForm == StepForm.DetalheViagem?
                                 "Continuar"
