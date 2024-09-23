@@ -67,9 +67,23 @@ export default function userTrips(){
             return error
         }
     }
+
+    const deleteTrip= async(tripID: string)=>{
+        console.log("Id da tripID", tripID)
+        try{
+            const {data}= await API.delete(`/deleteTrip/${tripID}`)
+            console.log("data:",data)
+            return data
+        }catch(error: any){
+            console.log("Console aqui:",error.message)
+            return error
+        }
+    }
+
     return {
         getTripsByID,
         createTrip,
-        getTripsbyEmail
+        getTripsbyEmail,
+        deleteTrip
     }
 }

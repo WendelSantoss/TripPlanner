@@ -9,7 +9,8 @@ interface UserInterface {
 
 type UserData={
     displayName: string,
-    email: string
+    email: string,
+    photoURL: string
 }
 
 const UserContext = createContext<UserInterface>({
