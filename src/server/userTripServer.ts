@@ -11,11 +11,10 @@ export type TripsDetails= {
 export type TripFormato= {
     destination: string,
     starts_at: string,
-    end_at: string, 
-    emails_invitation: string[],
+    ends_at: string, 
+    emails_to_invite: string[],
     owner_name: string,
     owner_email: string
-
 }
 
 export default function userTrips(){
@@ -29,16 +28,48 @@ export default function userTrips(){
         }
     }
 
-    const createTrip= async (dadosViagem: TripFormato)=>{
+    const getTripsbyEmail= async (email: String)=> {
         try{
-            const {data} = await API.post(`/trips`, dadosViagem)
+            const {data} = await API.get(`/trips`,{
+                params: {
+                    email: email, // Passa o email como query parameter
+                },
+            });
+            
             return data
-        }catch(error){
-            throw error
+        }catch(error: any){
+            console.log("Error na chamada:",error.message)
+            return error.response.data.message
+        }
+    }
+
+    const createTrip= async ( {
+        destination,
+        starts_at,
+        ends_at, 
+        emails_to_invite,
+        owner_name,
+        owner_email}: TripFormato)=>{
+  
+        try{
+            const {data} = await API.post(`/trips`, {
+                destination,
+                starts_at,
+                ends_at, 
+                emails_to_invite,
+                owner_name,
+                owner_email
+            })
+          
+            return data
+        }catch(error: any){
+            console.log("Console aqui:",error.message)
+            return error
         }
     }
     return {
         getTripsByID,
-        createTrip
+        createTrip,
+        getTripsbyEmail
     }
 }

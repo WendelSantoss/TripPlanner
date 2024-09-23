@@ -18,7 +18,7 @@ function Input({ children, variant = "primary" }: inputProps){
         {
             "h-14 px-4 rounded-lg border border-zinc-800": variant !== "primary",
             "bg-zinc-950": variant === "secondary",
-            "bg-zinc-900": variant === "tertiary"
+            "bg-zinc-800": variant === "tertiary"
         }
     )}>
         {children}

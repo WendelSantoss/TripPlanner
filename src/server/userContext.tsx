@@ -7,6 +7,11 @@ interface UserInterface {
     setUser: (dataUser: any) => void;
 }
 
+type UserData={
+    displayName: string,
+    email: string
+}
+
 const UserContext = createContext<UserInterface>({
     user: null,
     token: "",
@@ -17,7 +22,7 @@ const UserContext = createContext<UserInterface>({
 
 
 export function UserContextProvider (props: any) {
-    const [user, setUser] = useState<any>(null);
+    const [user, setUser] = useState<UserData>();
     const [token, setToken] = useState<string>("");
 
     return (
