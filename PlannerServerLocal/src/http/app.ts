@@ -21,7 +21,7 @@ import { getTripLinks } from './routes/get-trip-links'
 import { getTripParticipants } from './routes/get-trip-participants'
 import { updateTrip } from './routes/update-trip'
 import { confirmParticipant } from './routes/confirm-participant'
-import { getListTrips } from './routes/get-list-trip'
+import { getListTrips } from './routes/get-trip-byEmail'
 import { deleteTrip } from './routes/deleteTrip' 
 
 
